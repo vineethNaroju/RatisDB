@@ -2,9 +2,24 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="emr-public-snapshots-repo" />
+      <option name="name" value="Emr Snapshot Repository" />
+      <option name="url" value="https://amazon-149122183214.d.codeartifact.us-west-2.amazonaws.com/maven/emr-release-snapshots" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
-      <option name="url" value="https://repo.maven.apache.org/maven2" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="emr-thirdparty-releases-repo" />
+      <option name="name" value="EMR Third Party Releases Repository" />
+      <option name="url" value="https://amazon-149122183214.d.codeartifact.us-west-2.amazonaws.com/maven/emr-release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="emr-public-releases-repo" />
+      <option name="name" value="Emr Release Repository" />
+      <option name="url" value="https://amazon-149122183214.d.codeartifact.us-west-2.amazonaws.com/maven/emr-release" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />

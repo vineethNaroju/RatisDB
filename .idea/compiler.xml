@@ -9,5 +9,8 @@
         <module name="RatisDB" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="RatisDB" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
