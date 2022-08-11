@@ -9,16 +9,17 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.ratis:ratis-server:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ratis:ratis-common:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ratis:ratis-thirdparty-misc:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ratis:ratis-proto:2.3.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.ratis:ratis-common:2.3.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.ratis:ratis-server-api:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.29" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.ratis:ratis-metrics:2.3.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: io.dropwizard.metrics:metrics-core:3.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ratis:ratis-client:2.3.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.ratis:ratis-grpc:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ratis:ratis-server:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ratis:ratis-server-api:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ratis:ratis-metrics:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:3.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ratis:ratis-netty:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ratis:ratis-grpc:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ratis:ratis-tools:2.3.0" level="project" />
   </component>
 </module>

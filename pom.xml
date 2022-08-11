@@ -11,39 +11,44 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <ratis.version>2.3.0</ratis.version>
     </properties>
 
     <dependencies>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.ratis/ratis-server -->
         <dependency>
+            <artifactId>ratis-common</artifactId>
             <groupId>org.apache.ratis</groupId>
-            <artifactId>ratis-server</artifactId>
-            <version>2.3.0</version>
-            <scope>provided</scope>
+            <version>${ratis.version}</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.ratis/ratis-client -->
         <dependency>
-            <groupId>org.apache.ratis</groupId>
             <artifactId>ratis-client</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.ratis/ratis-grpc -->
-        <dependency>
             <groupId>org.apache.ratis</groupId>
-            <artifactId>ratis-grpc</artifactId>
-            <version>2.3.0</version>
+            <version>${ratis.version}</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.ratis/ratis-netty -->
         <dependency>
+            <artifactId>ratis-server</artifactId>
             <groupId>org.apache.ratis</groupId>
+            <version>${ratis.version}</version>
+        </dependency>
+        <dependency>
             <artifactId>ratis-netty</artifactId>
-            <version>2.3.0</version>
+            <groupId>org.apache.ratis</groupId>
+            <version>${ratis.version}</version>
+        </dependency>
+        <dependency>
+            <artifactId>ratis-grpc</artifactId>
+            <groupId>org.apache.ratis</groupId>
+            <version>${ratis.version}</version>
+        </dependency>
+        <dependency>
+            <artifactId>ratis-tools</artifactId>
+            <groupId>org.apache.ratis</groupId>
+            <version>${ratis.version}</version>
         </dependency>
 
     </dependencies>
+
+
 
 </project>
