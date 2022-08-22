@@ -2,8 +2,12 @@ package org.example;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 public class StringFF {
 
@@ -14,27 +18,37 @@ public class StringFF {
         map.put("name", "vineeth");
         map.put("city", "bangalore");
 
+        File file = new File("kvpair.txt");
 
-        File file = new File("map");
+        BufferedWriter bf = null;
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(file.toPath())))) {
+        try {
+
+            bf = new BufferedWriter(new FileWriter(file));
+
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                out.writeBytes(entry.getKey() + "_" + entry.getValue() + "\n");
+                bf.write(entry.getKey() + "_" + entry.getValue() + "\n");
+            }
+
+            bf.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                assert bf != null;
+                bf.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        Path path = file.toPath();
 
-        String str;
-
-        while((str = br.readLine()) != null) {
-            System.out.println(str);
+        List<String> contents = Files.readAllLines(path);
+        for(String line : contents) {
+            String[] kv = line.split("_");
+            System.out.println(kv[0] + "|" + kv[1]);
         }
-
-
-        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(file.toPath())))) {
-            System.out.println(in.readUTF());
-        }
-
     }
 }

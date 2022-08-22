@@ -5,26 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8e6098a-0884-4250-8f1d-f450381ef5b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/StringFF.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Timepass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Config.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/DBClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/DBClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/DBServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/DBServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/StringFF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/StringFF.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/example/ServerStateMachine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/ServerStateMachine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/common/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/common/Constants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/CounterCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/counter/CounterCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/client/CounterClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/counter/client/CounterClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterStateMachine$CounterState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterStateMachine$CounterState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterStateMachine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterStateMachine.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,18 +49,18 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "/Users/narojv/Documents/GitHub/RatisDB",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Console Font"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/narojv/Documents/GitHub/RatisDB&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Font&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.StringFF">
     <configuration name="DBClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.DBClient" />

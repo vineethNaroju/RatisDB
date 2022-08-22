@@ -14,24 +14,8 @@ import org.apache.ratis.statemachine.impl.SingleFileSnapshotInfo;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
-
-/*
-*
-*
-*
-*
-*
-*
-*
-*
-*
-* */
 
 
 public class ServerStateMachine extends BaseStateMachine {
@@ -64,21 +48,22 @@ public class ServerStateMachine extends BaseStateMachine {
         return new MapState(getLastAppliedTermIndex(), map);
     }
 
+    synchronized boolean updateMapState(TermIndex appliedTermIndex, Map<String, String> newMap) {
+
+        if(updateLastAppliedTermIndex(appliedTermIndex.getTerm(), appliedTermIndex.getIndex())) {
+            map = newMap;
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public void initialize(RaftServer raftServer, RaftGroupId raftGroupId, RaftStorage raftStorage) throws IOException {
         super.initialize(raftServer, raftGroupId, raftStorage);
         stateMachineStorage.init(raftStorage);
         loadStateMachineFromSnapshot(stateMachineStorage.getLatestSnapshot());
     }
-
-
-    /*
-    * StateMachine -> snap shot -> store in
-    *
-    *
-    *
-    * */
-
 
     @Override //TODO: takeSnapshot
     public long takeSnapshot() throws IOException {
@@ -92,12 +77,27 @@ public class ServerStateMachine extends BaseStateMachine {
         // create an empty file with applied term-index values as part of it's name
         final File snapshotFile = stateMachineStorage.getSnapshotFile(appliedTerm, appliedIndex);
 
-        try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(snapshotFile.toPath())))) {
+        BufferedWriter bf = null;
+
+        try {
+
+            bf = new BufferedWriter(new FileWriter(snapshotFile));
+
             for(Map.Entry<String, String> entry : map.entrySet()) {
-                out.writeBytes(entry.getKey() + "_" + entry.getValue() + "\n");
+                bf.write(entry.getKey() + "_" + entry.getValue() + "\n");
             }
+
+            bf.flush();
         } catch (IOException e) {
             LOG.warn("failed to write snapshot file \"" + snapshotFile + "\", applied term:" + appliedTerm + " and applied index:" + appliedIndex);
+            e.printStackTrace();
+        } finally {
+            try {
+                assert bf != null;
+                bf.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return super.takeSnapshot();
@@ -118,12 +118,19 @@ public class ServerStateMachine extends BaseStateMachine {
 
         final TermIndex snapshotTermIndex = SimpleStateMachineStorage.getTermIndexFromSnapshotFile(path.toFile());
 
-        File file = path.toFile();
+        List<String> contents = Files.readAllLines(path);
 
-        Stream<String> stringStream = Files.lines(path);
+        final Map<String, String> map = new TreeMap<>();
 
-        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path)))) {
+        for(String line : contents) {
+            String[] kv = line.split("_");
+            map.put(kv[0], kv[1]);
+        }
 
+        if(updateMapState(snapshotTermIndex, map)) {
+            printString("Loaded state machine from snapshot, term-index: "  + snapshotTermIndex);
+        } else {
+            printString("Failed to load state machine from snapshot");
         }
     }
 
@@ -135,5 +142,9 @@ public class ServerStateMachine extends BaseStateMachine {
     @Override //TODO: complete update code
     public CompletableFuture<Message> applyTransaction(TransactionContext trx) {
         return super.applyTransaction(trx);
+    }
+
+    void printString(Object o) {
+        System.out.println(new Date() + "|" + o);
     }
 }

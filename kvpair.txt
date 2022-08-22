@@ -1,0 +1,2 @@
+city_bangalore
+name_vineeth
