@@ -47,7 +47,28 @@ public class DBClient {
                 .setRaftGroup(raftGroup)
                 .build();
 
-        RaftClientReply reply = raftClient.io().send(Message.valueOf("client says hi!"));
-        print(reply);
+        RaftClientReply reply = raftClient.io().send(Message.valueOf("send message"));
+        // goes to applyTransaction
+        print(reply.getMessage());
+
+        reply = raftClient.io().sendReadOnly(Message.valueOf("read-only message"));
+        // goes to query
+        print(reply.getMessage());
+
+        String[] updates = {"abc_def", "abc_1", "cat_kitten", "cat_cute", "hello_world", "prime_sun", "cat", "hello",
+                "abc", "who", "rose"};
+
+
+        for(String entry : updates) {
+            String[] kv = entry.split("_");
+
+            if(kv.length == 1) {
+                reply = raftClient.io().sendReadOnly(Message.valueOf(entry));
+            } else {
+                reply = raftClient.io().send(Message.valueOf(entry));
+            }
+
+            print("input:" + entry + ",reply message:" + reply.getMessage().getContent().toStringUtf8());
+        }
     }
 }

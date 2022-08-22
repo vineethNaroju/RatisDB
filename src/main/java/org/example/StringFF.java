@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -50,5 +51,23 @@ public class StringFF {
             String[] kv = line.split("_");
             System.out.println(kv[0] + "|" + kv[1]);
         }
+
+
+        File f2 = new File("kvpo.txt");
+
+        try (OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(f2.toPath()))) {
+            for(Map.Entry<String, String> entry : map.entrySet()) {
+                String str = entry.getKey() + "_" + entry.getValue() + "\n";
+                outputStream.write(str.getBytes(StandardCharsets.UTF_8));
+            }
+        }
+
+        String line = null;
+        BufferedReader br = new BufferedReader(new InputStreamReader(Files.newInputStream(f2.toPath())));
+
+        while((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+
     }
 }

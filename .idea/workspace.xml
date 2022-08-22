@@ -6,9 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="a8e6098a-0884-4250-8f1d-f450381ef5b0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DBClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DBServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/StringFF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/StringFF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/ServerStateMachine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/ServerStateMachine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Config.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/DBClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/DBServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/ServerStateMachine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/common/Constants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/CounterCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/client/CounterClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterStateMachine$CounterState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterStateMachine.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +72,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Font&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.StringFF">
+  <component name="RunManager" selected="Application.DBServer">
     <configuration name="DBClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.DBClient" />
       <module name="RatisDB" />
@@ -78,7 +89,7 @@
     <configuration name="DBServer" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.DBServer" />
       <module name="RatisDB" />
-      <option name="PROGRAM_PARAMETERS" value="0" />
+      <option name="PROGRAM_PARAMETERS" value="1" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.example.*" />
@@ -122,10 +133,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DBServer" />
+        <item itemvalue="Application.DBClient" />
         <item itemvalue="Application.StringFF" />
         <item itemvalue="Application.Timepass" />
-        <item itemvalue="Application.DBClient" />
-        <item itemvalue="Application.DBServer" />
       </list>
     </recent_temporary>
   </component>

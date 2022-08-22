@@ -1,5 +1,6 @@
 package org.example;
 
+import org.apache.ratis.conf.Parameters;
 import org.apache.ratis.conf.RaftProperties;
 import org.apache.ratis.grpc.GrpcConfigKeys;
 import org.apache.ratis.protocol.RaftGroup;
@@ -12,10 +13,9 @@ import org.apache.ratis.util.NetUtils;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class DBServer implements Closeable {
 
@@ -73,5 +73,7 @@ public class DBServer implements Closeable {
 
     public void doStuff() throws Exception {
         raftServer.start();
+        // otherwise server exits immediately - wtf
+        new Scanner(System.in, UTF_8.name()).nextLine();
     }
 }
