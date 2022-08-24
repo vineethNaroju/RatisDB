@@ -1,16 +1,9 @@
 package org.example;
 
 import org.apache.ratis.client.RaftClient;
-import org.apache.ratis.client.RaftClientRpc;
-import org.apache.ratis.client.api.*;
-import org.apache.ratis.conf.Parameters;
 import org.apache.ratis.conf.RaftProperties;
-import org.apache.ratis.grpc.GrpcFactory;
-import org.apache.ratis.grpc.client.GrpcClientRpc;
-import org.apache.ratis.netty.NettyFactory;
-import org.apache.ratis.netty.client.NettyClientRpc;
 import org.apache.ratis.protocol.*;
-import org.apache.ratis.rpc.SupportedRpcType;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,21 +11,12 @@ import java.util.Date;
 import java.util.List;
 
 public class DBClient {
-
-
+    public final RaftClient raftClient;
     public static void print(Object o) {
         System.out.println(new Date() + "|" + o);
     }
 
-    public static void main(String[] args) throws Exception {
-        DBClient client = new DBClient();
-        client.doStuff();
-    }
-
-    private void doStuff() throws Exception {
-
-        RaftProperties raftProperties = new RaftProperties();
-
+    DBClient() {
         List<RaftPeer> raftPeersList = new ArrayList<>();
 
         for(String peerIp : Config.clusterIps) {
@@ -42,33 +26,44 @@ public class DBClient {
 
         RaftGroup raftGroup = RaftGroup.valueOf(RaftGroupId.valueOf(Config.groupUUID), raftPeersList);
 
-        RaftClient raftClient = RaftClient.newBuilder()
-                .setProperties(raftProperties)
+        raftClient = RaftClient.newBuilder()
+                .setProperties(new RaftProperties())
                 .setRaftGroup(raftGroup)
                 .build();
+    }
 
-        RaftClientReply reply = raftClient.io().send(Message.valueOf("send message"));
-        // goes to applyTransaction
-        print(reply.getMessage());
+    public static void main(String[] args) throws Exception {
+        DBClient client = new DBClient();
+        client.doStuff();
+    }
 
-        reply = raftClient.io().sendReadOnly(Message.valueOf("read-only message"));
-        // goes to query
-        print(reply.getMessage());
+    // goes to query
+    public String query(String key) throws IOException {
+        RaftClientReply reply = raftClient.io().sendReadOnly(Message.valueOf(key));
+        return reply.getMessage().getContent().toStringUtf8();
+    }
 
-        String[] updates = {"abc_def", "abc_1", "cat_kitten", "cat_cute", "hello_world", "prime_sun", "cat", "hello",
-                "abc", "who", "rose"};
+    // goes to applyTransaction
+    public String update(String key, String val) throws IOException {
+        RaftClientReply reply = raftClient.io().send(Message.valueOf(key + "_" + val));
+        return reply.getMessage().getContent().toStringUtf8();
+    }
 
+    public void doStuff() throws Exception {
+        String key = "city", val = "hyd", res = "none";
 
-        for(String entry : updates) {
-            String[] kv = entry.split("_");
+        for(int i=0; i<100; i++) {
+            Thread.sleep(3000);
 
-            if(kv.length == 1) {
-                reply = raftClient.io().sendReadOnly(Message.valueOf(entry));
-            } else {
-                reply = raftClient.io().send(Message.valueOf(entry));
-            }
+            res = query(key);
 
-            print("input:" + entry + ",reply message:" + reply.getMessage().getContent().toStringUtf8());
+            print("query|key:" + key + ",val:" + val);
+
+            Thread.sleep(2000);
+
+            res = update(key, val + i);
+
+            print("update|key:" + key + ",val" + val + i);
         }
     }
 }

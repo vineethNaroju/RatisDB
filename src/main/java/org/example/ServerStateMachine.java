@@ -5,7 +5,6 @@ import org.apache.ratis.protocol.Message;
 import org.apache.ratis.protocol.RaftGroupId;
 import org.apache.ratis.server.RaftServer;
 import org.apache.ratis.server.protocol.TermIndex;
-import org.apache.ratis.server.raftlog.RaftLog;
 import org.apache.ratis.server.storage.RaftStorage;
 import org.apache.ratis.statemachine.TransactionContext;
 import org.apache.ratis.statemachine.impl.BaseStateMachine;
@@ -155,14 +154,10 @@ public class ServerStateMachine extends BaseStateMachine {
         RaftProtos.LogEntryProto entry = trx.getLogEntry();
         String cmd = entry.getStateMachineLogEntry().getLogData().toStringUtf8();
 
-        printString("applyTransaction: trx server role:" + trx.getServerRole().getNumber() + ", cmd:" + cmd);
+        printString("applyTransaction|cmd:" + cmd + ",node:" + trx.getServerRole().getValueDescriptor().getName());
 
         String[] kv = cmd.split("_");
         TermIndex termIndex = TermIndex.valueOf(entry);
-
-        if(trx.getServerRole() == RaftProtos.RaftPeerRole.LEADER) {
-            printString("applyTransaction: trx server role is from leader");
-        }
 
         String res = "none";
 

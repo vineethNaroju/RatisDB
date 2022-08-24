@@ -1,6 +1,5 @@
 package org.example;
 
-import org.apache.ratis.conf.Parameters;
 import org.apache.ratis.conf.RaftProperties;
 import org.apache.ratis.grpc.GrpcConfigKeys;
 import org.apache.ratis.protocol.RaftGroup;
@@ -19,7 +18,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class DBServer implements Closeable {
 
-    private final RaftServer raftServer;
+    public final RaftServer raftServer;
 
     DBServer(int peerIdx) throws Exception {
 

@@ -14,7 +14,7 @@ public final class Config {
 
          clusterIps.add("127.0.0.1:3420");
          clusterIps.add("127.0.0.1:3421");
-         clusterIps.add("127.0.0.1:3422");
+         // clusterIps.add("127.0.0.1:3422"); // rm1, rm2, rm3 (doesnt matter what ips these are )
      }
 
      private Config() {

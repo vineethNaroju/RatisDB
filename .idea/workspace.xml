@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8e6098a-0884-4250-8f1d-f450381ef5b0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/RMprocess.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/todo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Config.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DBClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DBServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/StringFF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/StringFF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Config.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/DBClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/DBServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/ServerStateMachine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/common/Constants.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/CounterCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/client/CounterClient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterStateMachine$CounterState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/counter/server/CounterStateMachine.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +30,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server-api/2.3.0/ratis-server-api-2.3.0-sources.jar!/org/apache/ratis/server/raftlog/RaftLog.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server-api/2.3.0/ratis-server-api-2.3.0-sources.jar!/org/apache/ratis/statemachine/SnapshotInfo.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server-api/2.3.0/ratis-server-api-2.3.0-sources.jar!/org/apache/ratis/statemachine/StateMachineStorage.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server/2.3.0/ratis-server-2.3.0-sources.jar!/org/apache/ratis/statemachine/impl/BaseStateMachine.java" root0="SKIP_INSPECTION" />
@@ -60,19 +54,19 @@
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/narojv/Documents/GitHub/RatisDB&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Font&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "/Users/narojv/Documents/GitHub/RatisDB",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
-}</component>
-  <component name="RunManager" selected="Application.DBServer">
+}]]></component>
+  <component name="RunManager" selected="Application.RMprocess">
     <configuration name="DBClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.DBClient" />
       <module name="RatisDB" />
@@ -89,7 +83,26 @@
     <configuration name="DBServer" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.DBServer" />
       <module name="RatisDB" />
-      <option name="PROGRAM_PARAMETERS" value="1" />
+      <option name="PROGRAM_PARAMETERS" value="2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RMprocess" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.RMprocess" />
+      <module name="RatisDB" />
+      <option name="PROGRAM_PARAMETERS" value="0" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.example.*" />
@@ -133,8 +146,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DBServer" />
         <item itemvalue="Application.DBClient" />
+        <item itemvalue="Application.DBServer" />
         <item itemvalue="Application.StringFF" />
         <item itemvalue="Application.Timepass" />
       </list>
