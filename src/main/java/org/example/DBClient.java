@@ -63,7 +63,7 @@ public class DBClient {
 
             res = update(key, val + i);
 
-            print("update|key:" + key + ",val" + val + i);
+            print("update|key:" + key + ",val:" + val + i);
         }
     }
 }
