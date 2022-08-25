@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8e6098a-0884-4250-8f1d-f450381ef5b0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DBClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DBServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RMprocess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RMprocess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/todo.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +61,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RunManager" selected="Application.RMprocess">
@@ -76,7 +81,7 @@
     <configuration name="DBServer" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.DBServer" />
       <module name="RatisDB" />
-      <option name="PROGRAM_PARAMETERS" value="2" />
+      <option name="PROGRAM_PARAMETERS" value="1" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.example.*" />
@@ -174,16 +179,21 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
+        <breakpoint type="java-exception">
           <properties class="java.lang.NoClassDefFoundError" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
+        <breakpoint type="java-exception">
           <properties class="java.lang.ClassNotFoundException" package="java.lang" />
           <option name="timeStamp" value="3" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.apache.ratis.server.impl.RaftServerProxy" memberName="properties" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

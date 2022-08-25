@@ -53,17 +53,9 @@ public class DBClient {
         String key = "city", val = "hyd", res = "none";
 
         for(int i=0; i<100; i++) {
-            Thread.sleep(3000);
-
-            res = query(key);
-
-            print("query|key:" + key + ",val:" + val);
-
-            Thread.sleep(2000);
-
-            res = update(key, val + i);
-
-            print("update|key:" + key + ",val:" + val + i);
+            Thread.sleep(5000);
+            res = update(key + (i % 5), val + i);
+            print("update|key:" + (key + (i%5)) + ",res:" + res);
         }
     }
 }

@@ -50,7 +50,7 @@ public class ServerStateMachine extends BaseStateMachine {
 
     synchronized boolean updateMapState(TermIndex appliedTermIndex, Map<String, String> newMap) {
 
-        printString("updateMapState: term index:" + appliedTermIndex + ",newMap:" + newMap);
+        printString("synchronized-updateMapState|appliedTermIndex:" + appliedTermIndex + ",newMap:" + newMap);
 
         if(updateLastAppliedTermIndex(appliedTermIndex.getTerm(), appliedTermIndex.getIndex())) {
             map = newMap;
@@ -71,17 +71,22 @@ public class ServerStateMachine extends BaseStateMachine {
 
     @Override
     public void initialize(RaftServer raftServer, RaftGroupId raftGroupId, RaftStorage raftStorage) throws IOException {
-        printString("initialize: entered");
+        printString("initialize|entered");
         super.initialize(raftServer, raftGroupId, raftStorage);
-        printString("initialize: after initialize");
         stateMachineStorage.init(raftStorage);
-        printString("initialize: init raftStorage");
         loadStateMachineFromSnapshot(stateMachineStorage.getLatestSnapshot());
-        printString("initialize: last line");
+        printString("initialize|last line");
+    }
+
+    @Override
+    public void reinitialize() throws IOException {
+        loadStateMachineFromSnapshot(stateMachineStorage.getLatestSnapshot());
     }
 
     @Override //TODO: takeSnapshot
     public long takeSnapshot() throws IOException {
+
+        printString("takeSnapshot|started");
 
         // get the map with last applied term index values
         final MapState mapState = getMapState();
@@ -89,33 +94,40 @@ public class ServerStateMachine extends BaseStateMachine {
         final long appliedTerm = mapState.getAppliedTermIndex().getTerm();
         final long appliedIndex = mapState.getAppliedTermIndex().getIndex();
 
+        printString("takeSnapshot|appliedTerm:" + appliedTerm + ",appliedIndex:" + appliedIndex);
+
         // create an empty file with applied term-index values as part of it's name
         final File snapshotFile = stateMachineStorage.getSnapshotFile(appliedTerm, appliedIndex);
 
         try (OutputStream outputStream = new BufferedOutputStream(Files.newOutputStream(snapshotFile.toPath()))) {
             for(Map.Entry<String, String> entry : map.entrySet()) {
-                String str = entry.getKey() + "_" + entry.getValue() + "\n";
+                String str = entry.getKey() + "_" + entry.getValue();
+                printString("takeSnapshot|str:" + str);
+                str += "\n";
                 outputStream.write(str.getBytes(StandardCharsets.UTF_8));
             }
         } catch (Exception e) {
-            printString("takeSnapshot: failed to write snapshot file " + snapshotFile + ",term:" + appliedTerm + "," +
+            printString("takeSnapshot|failed to write snapshot file " + snapshotFile + ",term:" + appliedTerm + "," +
                     "index:" + appliedIndex);
             e.printStackTrace();
         }
+
+        printString("takeSnapshot|ended");
 
         return super.takeSnapshot();
     }
 
     void loadStateMachineFromSnapshot(SingleFileSnapshotInfo snapshotInfo) throws IOException {
+        printString("loadStateMachineFromSnapshot|started");
         if(snapshotInfo == null) {
-            printString("loadStateMachineFromSnapshot: Snapshot info is null");
+            printString("loadStateMachineFromSnapshot|Snapshot info is null");
             return;
         }
 
         final Path path = snapshotInfo.getFile().getPath();
 
         if(!Files.exists(path)) {
-            printString("loadStateMachineFromSnapshot: Snapshot file " + path + " doesn't exist for snapshot info " + snapshotInfo);
+            printString("loadStateMachineFromSnapshot|Snapshot file " + path + " doesn't exist for snapshot info " + snapshotInfo);
             return;
         }
 
@@ -128,33 +140,32 @@ public class ServerStateMachine extends BaseStateMachine {
         for(String line : contents) {
             String[] kv = line.split("_");
             map.put(kv[0], kv[1]);
-            printString("loadStateMachineFromSnapshot:" + snapshotTermIndex + ",key:" + kv[0] + ",val:" + kv[1]);
+            printString("loadStateMachineFromSnapshot|snapshotTermIndex:" + snapshotTermIndex + ",key:" + kv[0] + "," +
+                    "val:" + kv[1]);
         }
 
         if(updateMapState(snapshotTermIndex, map)) {
-            printString("loadStateMachineFromSnapshot: Loaded state machine from snapshot, term-index: "  + snapshotTermIndex);
+            printString("loadStateMachineFromSnapshot|Loaded state machine from snapshot, term-index: "  + snapshotTermIndex);
         } else {
-            printString("loadStateMachineFromSnapshot: Failed to load state machine from snapshot");
+            printString("loadStateMachineFromSnapshot|Failed to load state machine from snapshot");
         }
     }
 
     @Override //TODO: complete query code
     public CompletableFuture<Message> query(Message request) {
-        printString("query: request:" + request);
         String key = request.getContent().toStringUtf8();
         String val = map.getOrDefault(key, "");
+        printString("query|key:" + key + ",val:" + val);
         return CompletableFuture.completedFuture(Message.valueOf(val));
     }
 
     @Override //TODO: complete update code
     public CompletableFuture<Message> applyTransaction(TransactionContext trx) {
-        printString("applyTransaction: trx: " + trx);
-
         // this the committed entry either from leader or client originated request
         RaftProtos.LogEntryProto entry = trx.getLogEntry();
         String cmd = entry.getStateMachineLogEntry().getLogData().toStringUtf8();
 
-        printString("applyTransaction|cmd:" + cmd + ",node:" + trx.getServerRole().getValueDescriptor().getName());
+        printString("applyTransaction|node:" + trx.getServerRole().getValueDescriptor().getName() + ",cmd:" + cmd);
 
         String[] kv = cmd.split("_");
         TermIndex termIndex = TermIndex.valueOf(entry);
@@ -162,10 +173,10 @@ public class ServerStateMachine extends BaseStateMachine {
         String res = "none";
 
         if(kv.length >= 2 && updateKeyValue(termIndex, kv[0], kv[1])) {
-            printString("applyTransaction: applied trx on local state machine successfully");
+            printString("applyTransaction|applied trx on local state machine successfully");
             res = "success";
         } else {
-            printString("applyTransaction: failed to apply trx on local state machine, kv length: " + kv.length);
+            printString("applyTransaction|failed to apply trx on local state machine, kv length: " + kv.length);
             res = "fail";
         }
 

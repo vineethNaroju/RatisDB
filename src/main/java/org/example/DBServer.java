@@ -1,5 +1,6 @@
 package org.example;
 
+import org.apache.ratis.conf.Parameters;
 import org.apache.ratis.conf.RaftProperties;
 import org.apache.ratis.grpc.GrpcConfigKeys;
 import org.apache.ratis.protocol.RaftGroup;
@@ -46,6 +47,13 @@ public class DBServer implements Closeable {
 //        NettyConfigKeys.Server.setPort(raftProperties, serverPort);
 
         final ServerStateMachine stateMachine = new ServerStateMachine();
+
+        raftProperties.setBoolean(RaftServerConfigKeys.Snapshot.AUTO_TRIGGER_ENABLED_KEY, true);
+        raftProperties.setInt(RaftServerConfigKeys.Snapshot.AUTO_TRIGGER_THRESHOLD_KEY, 10);
+        raftProperties.setInt(RaftServerConfigKeys.Snapshot.CREATION_GAP_KEY, 5);
+        raftProperties.setInt(RaftServerConfigKeys.Snapshot.RETENTION_FILE_NUM_KEY, 2);
+
+        //RaftServerConfigKeys.java
 
         raftServer = RaftServer.newBuilder()
                 .setGroup(raftGroup)

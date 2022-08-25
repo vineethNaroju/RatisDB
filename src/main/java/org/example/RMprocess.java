@@ -1,12 +1,14 @@
 package org.example;
 
+import org.apache.ratis.protocol.RaftClientRequest;
+
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 public class RMprocess {
 
     private final DBServer dbServer;
-    private final DBClient dbClient;
+    // private final DBClient dbClient;
 
     private final int rmId;
 
@@ -17,7 +19,7 @@ public class RMprocess {
         dbServer = new DBServer(id);
         dbServer.raftServer.start();
 
-        dbClient = new DBClient();
+        // dbClient = new DBClient();
     }
 
     public static void print(Object o) {
@@ -26,13 +28,13 @@ public class RMprocess {
 
     public void loopOver() {
 
-        if(rmId > 0) {
-            return;
-        }
+//        if(rmId > 0) {
+//            return;
+//        }
 
         Thread input = new Thread(() -> {
             try {
-                dbClient.doStuff();
+                db
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -47,7 +49,9 @@ public class RMprocess {
 
         RMprocess rm = new RMprocess(Integer.parseInt(args[0]));
 
-        rm.loopOver();
+         rm.loopOver();
+
+//      rm.dbClient.doStuff();
 
         try {
             rm.latch.await();
