@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8e6098a-0884-4250-8f1d-f450381ef5b0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/DBapi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DBClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DBServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RMprocess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RMprocess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ServerStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/todo.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -28,9 +28,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-common/2.3.0/ratis-common-2.3.0-sources.jar!/org/apache/ratis/protocol/RaftClientProtocol.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-common/2.3.0/ratis-common-2.3.0-sources.jar!/org/apache/ratis/protocol/RaftClientRequest.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server-api/2.3.0/ratis-server-api-2.3.0-sources.jar!/org/apache/ratis/server/raftlog/RaftLog.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server-api/2.3.0/ratis-server-api-2.3.0-sources.jar!/org/apache/ratis/statemachine/SnapshotInfo.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server-api/2.3.0/ratis-server-api-2.3.0-sources.jar!/org/apache/ratis/statemachine/StateMachineStorage.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server/2.3.0/ratis-server-2.3.0-sources.jar!/org/apache/ratis/server/impl/RaftServerImpl.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server/2.3.0/ratis-server-2.3.0-sources.jar!/org/apache/ratis/statemachine/impl/BaseStateMachine.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server/2.3.0/ratis-server-2.3.0-sources.jar!/org/apache/ratis/statemachine/impl/FileListSnapshotInfo.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$MAVEN_REPOSITORY$/org/apache/ratis/ratis-server/2.3.0/ratis-server-2.3.0-sources.jar!/org/apache/ratis/statemachine/impl/SimpleStateMachineStorage.java" root0="SKIP_INSPECTION" />

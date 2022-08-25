@@ -5,12 +5,13 @@ import org.apache.ratis.conf.RaftProperties;
 import org.apache.ratis.protocol.*;
 
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DBClient {
+public class DBClient implements DBapi, Closeable {
     public final RaftClient raftClient;
     public static void print(Object o) {
         System.out.println(new Date() + "|" + o);
@@ -32,9 +33,13 @@ public class DBClient {
                 .build();
     }
 
-    public static void main(String[] args) throws Exception {
-        DBClient client = new DBClient();
-        client.doStuff();
+    @Override
+    public void close() throws IOException {
+        raftClient.close();
+    }
+
+    public static void main(String[] args) {
+
     }
 
     // goes to query
@@ -47,15 +52,5 @@ public class DBClient {
     public String update(String key, String val) throws IOException {
         RaftClientReply reply = raftClient.io().send(Message.valueOf(key + "_" + val));
         return reply.getMessage().getContent().toStringUtf8();
-    }
-
-    public void doStuff() throws Exception {
-        String key = "city", val = "hyd", res = "none";
-
-        for(int i=0; i<100; i++) {
-            Thread.sleep(5000);
-            res = update(key + (i % 5), val + i);
-            print("update|key:" + (key + (i%5)) + ",res:" + res);
-        }
     }
 }

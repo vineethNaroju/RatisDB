@@ -8,7 +8,7 @@ import java.util.concurrent.CountDownLatch;
 public class RMprocess {
 
     private final DBServer dbServer;
-    // private final DBClient dbClient;
+    private final DBClient dbClient;
 
     private final int rmId;
 
@@ -18,8 +18,7 @@ public class RMprocess {
         rmId = id;
         dbServer = new DBServer(id);
         dbServer.raftServer.start();
-
-        // dbClient = new DBClient();
+        dbClient = new DBClient();
     }
 
     public static void print(Object o) {
@@ -34,7 +33,7 @@ public class RMprocess {
 
         Thread input = new Thread(() -> {
             try {
-                db
+                simulateRequests(dbClient);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -49,14 +48,33 @@ public class RMprocess {
 
         RMprocess rm = new RMprocess(Integer.parseInt(args[0]));
 
-         rm.loopOver();
-
-//      rm.dbClient.doStuff();
+        rm.loopOver();
 
         try {
             rm.latch.await();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void simulateRequests(DBapi dBapi) throws Exception {
+        String key = "rmId:" + rmId + ",city" + rmId, val = "hyd", res;
+
+        for(int i=0; i<100; i++) {
+            Thread.sleep(2000);
+
+            String k = key + (i%7), v = val + (i%7);
+
+            res = dBapi.query(k);
+
+            print("simulateRequests|query,key:" + k + ",res:" + res);
+
+            Thread.sleep(2000);
+
+            res = dBapi.update(k, v);
+
+            print("simulateRequests|update,key:" + k + ",res:" + res);
+        }
+
     }
 }

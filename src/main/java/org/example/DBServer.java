@@ -3,9 +3,7 @@ package org.example;
 import org.apache.ratis.conf.Parameters;
 import org.apache.ratis.conf.RaftProperties;
 import org.apache.ratis.grpc.GrpcConfigKeys;
-import org.apache.ratis.protocol.RaftGroup;
-import org.apache.ratis.protocol.RaftGroupId;
-import org.apache.ratis.protocol.RaftPeer;
+import org.apache.ratis.protocol.*;
 import org.apache.ratis.server.RaftServer;
 import org.apache.ratis.server.RaftServerConfigKeys;
 import org.apache.ratis.util.NetUtils;
@@ -17,11 +15,13 @@ import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class DBServer implements Closeable {
+public class DBServer implements Closeable, DBapi {
 
     public final RaftServer raftServer;
+    public final int peerIdx;
 
     DBServer(int peerIdx) throws Exception {
+        this.peerIdx = peerIdx;
 
         RaftProperties raftProperties = new RaftProperties();
 
@@ -74,13 +74,27 @@ public class DBServer implements Closeable {
 
     public static void main(String[] args) throws Exception {
         try (DBServer server = new DBServer(Integer.parseInt(args[0]))) {
-            server.doStuff();
+            server.raftServer.start();
+            // otherwise server exits immediately - wtf
+            new Scanner(System.in, UTF_8.name()).nextLine();
         }
     }
 
-    public void doStuff() throws Exception {
-        raftServer.start();
-        // otherwise server exits immediately - wtf
-        new Scanner(System.in, UTF_8.name()).nextLine();
+    public String update(String key, String val) throws IOException {
+        RaftClientRequest req = RaftClientRequest.newBuilder()
+                .setMessage(Message.valueOf(key + "_" + val))
+                .setType(RaftClientRequest.writeRequestType())
+                .build();
+        RaftClientReply reply = raftServer.submitClientRequest(req);
+        return reply.getMessage().getContent().toStringUtf8();
+    }
+
+    public String query(String key) throws IOException {
+        RaftClientRequest req = RaftClientRequest.newBuilder()
+                .setMessage(Message.valueOf(key))
+                .setType(RaftClientRequest.readRequestType())
+                .build();
+        RaftClientReply reply = raftServer.submitClientRequest(req);
+        return reply.getMessage().getContent().toStringUtf8();
     }
 }
