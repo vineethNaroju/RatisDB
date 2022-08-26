@@ -33,7 +33,8 @@ public class RMprocess {
 
         Thread input = new Thread(() -> {
             try {
-                simulateRequests(dbClient);
+                Thread.sleep(5000);
+                simulateRequests(dbServer);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -58,22 +59,30 @@ public class RMprocess {
     }
 
     public void simulateRequests(DBapi dBapi) throws Exception {
-        String key = "rmId:" + rmId + ",city" + rmId, val = "hyd", res;
+        String key = "rm" + rmId + "-city", val = "hyd", res;
 
-        for(int i=0; i<100; i++) {
-            Thread.sleep(2000);
+        for(int i=0; i<20; i++) {
+            Thread.sleep(5000L);
 
-            String k = key + (i%7), v = val + (i%7);
+            String k = key + (i%5), v = val + (i%5);
 
-            res = dBapi.query(k);
 
-            print("simulateRequests|query,key:" + k + ",res:" + res);
+            try {
+                res = dBapi.query(k);
+                print("simulateRequests|query|key:" + k + ",res:" + res);
+            } catch (Exception e) {
+                print("simulateRequests|query|key:" + k +  ",exception:" + e);
+            }
 
-            Thread.sleep(2000);
+            Thread.sleep(5000L);
 
-            res = dBapi.update(k, v);
+            try {
+                res = dBapi.update(k, v);
+                print("simulateRequests|update|key:" + k + ",res:" + res);
+            } catch (Exception e) {
+                print("simulateRequests|update|key:" + k + ",exception:" + e);
+            }
 
-            print("simulateRequests|update,key:" + k + ",res:" + res);
         }
 
     }

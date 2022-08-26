@@ -4,9 +4,15 @@ import org.apache.ratis.conf.Parameters;
 import org.apache.ratis.conf.RaftProperties;
 import org.apache.ratis.grpc.GrpcConfigKeys;
 import org.apache.ratis.protocol.*;
+import org.apache.ratis.protocol.exceptions.LeaderNotReadyException;
+import org.apache.ratis.protocol.exceptions.NotLeaderException;
+import org.apache.ratis.protocol.exceptions.RaftException;
+import org.apache.ratis.protocol.exceptions.StateMachineException;
 import org.apache.ratis.server.RaftServer;
 import org.apache.ratis.server.RaftServerConfigKeys;
+import org.apache.ratis.thirdparty.com.google.protobuf.ByteString;
 import org.apache.ratis.util.NetUtils;
+import sun.misc.UUEncoder;
 
 import java.io.Closeable;
 import java.io.File;
@@ -20,8 +26,16 @@ public class DBServer implements Closeable, DBapi {
     public final RaftServer raftServer;
     public final int peerIdx;
 
+    public final ClientId clientId;
+
+    public final RaftGroup raftGroup;
+
     DBServer(int peerIdx) throws Exception {
         this.peerIdx = peerIdx;
+
+        String temp = "DBServer-" + peerIdx;
+
+        clientId = ClientId.valueOf(UUID.nameUUIDFromBytes(temp.getBytes()));
 
         RaftProperties raftProperties = new RaftProperties();
 
@@ -32,7 +46,7 @@ public class DBServer implements Closeable, DBapi {
                     .setAddress(peerIp).build());
         }
 
-        RaftGroup raftGroup = RaftGroup.valueOf(RaftGroupId.valueOf(Config.groupUUID), raftPeersList);
+        raftGroup = RaftGroup.valueOf(RaftGroupId.valueOf(Config.groupUUID), raftPeersList);
 
         RaftPeer currentRaftPeer = raftPeersList.get(peerIdx);
 
@@ -48,10 +62,10 @@ public class DBServer implements Closeable, DBapi {
 
         final ServerStateMachine stateMachine = new ServerStateMachine();
 
-        raftProperties.setBoolean(RaftServerConfigKeys.Snapshot.AUTO_TRIGGER_ENABLED_KEY, true);
-        raftProperties.setInt(RaftServerConfigKeys.Snapshot.AUTO_TRIGGER_THRESHOLD_KEY, 10);
-        raftProperties.setInt(RaftServerConfigKeys.Snapshot.CREATION_GAP_KEY, 5);
-        raftProperties.setInt(RaftServerConfigKeys.Snapshot.RETENTION_FILE_NUM_KEY, 2);
+//        raftProperties.setBoolean(RaftServerConfigKeys.Snapshot.AUTO_TRIGGER_ENABLED_KEY, true);
+//        raftProperties.setInt(RaftServerConfigKeys.Snapshot.AUTO_TRIGGER_THRESHOLD_KEY, 10);
+//        raftProperties.setInt(RaftServerConfigKeys.Snapshot.CREATION_GAP_KEY, 5);
+//        raftProperties.setInt(RaftServerConfigKeys.Snapshot.RETENTION_FILE_NUM_KEY, 2);
 
         //RaftServerConfigKeys.java
 
@@ -84,8 +98,13 @@ public class DBServer implements Closeable, DBapi {
         RaftClientRequest req = RaftClientRequest.newBuilder()
                 .setMessage(Message.valueOf(key + "_" + val))
                 .setType(RaftClientRequest.writeRequestType())
+                .setGroupId(raftGroup.getGroupId())
+                .setServerId(raftServer.getId())
+                .setClientId(clientId)
+                //.setLeaderId(raftServer.getDivision(raftGroup.getGroupId()).getInfo().getLeaderId())
                 .build();
         RaftClientReply reply = raftServer.submitClientRequest(req);
+        handleReply(reply);
         return reply.getMessage().getContent().toStringUtf8();
     }
 
@@ -93,8 +112,55 @@ public class DBServer implements Closeable, DBapi {
         RaftClientRequest req = RaftClientRequest.newBuilder()
                 .setMessage(Message.valueOf(key))
                 .setType(RaftClientRequest.readRequestType())
+                .setGroupId(raftGroup.getGroupId())
+                .setServerId(raftServer.getId())
+                .setClientId(clientId)
+                //.setLeaderId(raftServer.getDivision(raftGroup.getGroupId()).getInfo().getLeaderId())
                 .build();
         RaftClientReply reply = raftServer.submitClientRequest(req);
+        handleReply(reply);
         return reply.getMessage().getContent().toStringUtf8();
     }
+
+    public void handleReply(RaftClientReply reply) {
+        if(reply.isSuccess()) {
+            return;
+        }
+
+        NotLeaderException notLeaderException = reply.getNotLeaderException();
+
+        if(notLeaderException != null) {
+            print(notLeaderException);
+            return;
+        }
+
+        LeaderNotReadyException leaderNotReadyException = reply.getLeaderNotReadyException();
+
+        if(leaderNotReadyException != null) {
+            print(leaderNotReadyException);
+            return;
+        }
+
+        StateMachineException stateMachineException = reply.getStateMachineException();
+
+        if(stateMachineException != null) {
+            print(stateMachineException);
+            return;
+        }
+
+        RaftException raftException =  reply.getException();
+
+        if(raftException != null) {
+            print(raftException);
+            return;
+        }
+
+        print(reply);
+
+    }
 }
+
+/*
+* Fri Aug 26 01:13:25 IST 2022|RaftClientReply:client-3CDAA9A573B6->127.0.0.1:3421@group-D1BE25537BB1, cid=0, FAILED org.apache.ratis.protocol.exceptions.NotLeaderException: Server 127.0.0.1:3421@group-D1BE25537BB1 is not the leader, logIndex=0, commits[127.0.0.1:3421:c-1]
+
+ * * */

@@ -73,11 +73,19 @@ any case write fails -> store reqs into zkFs
 RMreq -> RaftPeer(req) -> zkWAL (need to chunk transactions into smaller ones)
 Pros: if active dies then standby will have latest state and don't need to read from zkWAL
 
-2.
-* Validate *
-- Recovery of raft peer in case of missing latest transaction ? WAL or edit logs or snapshots etc ?
-- RMactive but RaftServer can be any state but RaftServer.submitClientRequest should be replicated - without using
+--------------------------------
+TODO
+* Recovery of raft peer in case of missing latest transaction ? WAL or edit logs or snapshots etc ?
+
+
+* RMactive but RaftServer can be any state but RaftServer.submitClientRequest should be replicated - without using
 client.
-- Read Ozone code and compare WALs
+- Follower node can't submit client request other wise it will get NotLeaderException.
+- Only the Leader node can do so and that request gets replicated.
+
+* Read Ozone code and compare WALs
+- I read and compared OM, OMRatisServer, OMStateMachine
 
 - our own distrbuted WAL with raft support
+
+I'm lost again - I should read Raft paper and compare with StateMachine Implementation.
